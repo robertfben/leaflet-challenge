@@ -59,7 +59,6 @@ function createMap(sixthTierLayer, fifthTierLayer, fourthTierLayer, thirdTierLay
     legend.onAdd = function () {
         // create a div for the legend
         var div = L.DomUtil.create('div', 'info legend');
-        //console.log(div);
 
         var intervals = [0, 10, 30, 50, 70, 90];
         // array to represent colors associated with the intervals
@@ -74,15 +73,12 @@ function createMap(sixthTierLayer, fifthTierLayer, fourthTierLayer, thirdTierLay
 
         // use loop to generate labels within the div
         // div starts empty, then is populated with the data from the arrays
-        for(var i = 0; i < intervals.length; i++)
-        {
+        for (var i = 0; i < intervals.length; i++) {
             // display the colors and the interval values
-            // console.log(colors[i]);
-            // console.log(intervals[i]);
             // use .innerHTML to set the value of the color and the text for the interval
             div.innerHTML += "<i style='background: " + colors[i] + "'></i>"
-            + intervals[i]
-            + (intervals[i + 1] ? " bikes &ndash; " + intervals[i+1] + " bikes<br>" : "+");
+                + intervals[i]
+                + (intervals[i + 1] ? " bikes &ndash; " + intervals[i + 1] + " bikes<br>" : "+");
         }
 
         return div;
@@ -90,22 +86,19 @@ function createMap(sixthTierLayer, fifthTierLayer, fourthTierLayer, thirdTierLay
 
     // add legend to map
     legend.addTo(map);
-    
+
 };
 
 
 // Creating the createMarkers function to pull earthquake data and create its markers
 // for North America only (do later)
 function createMarkers(data) {
-    //console.log(data.features[0]);
 
     // Pull the properties needed
     // create array of features to go through
-    //console.log(data.features[0].geometry.coordinates)
     var features = data.features
 
     // Initialize arrays to hold the earthquake depths markers
-    //var earthquakeMarkers = [] 
     var sixthTierDepth = [] // array for earthquake depth 90+
     var fifthTierDepth = [] // array for earthquake depth 70-90
     var fourthTierDepth = [] // array for earthquake depth 50-70
@@ -158,13 +151,10 @@ function createMarkers(data) {
         else
             firstTierDepth.push(earthquake);
 
-        // add the marker to earthquakeMarkers array
-        //earthquakeMarkers.push(earthquake)
     };
 
     // Create a layer group made from earthquake markers array
     // and pass it to the createMap function
-    //var earthquakeLayer = L.layerGroup(earthquakeMarkers);
     var sixthTierLayer = L.layerGroup(sixthTierDepth);
     var fifthTierLayer = L.layerGroup(fifthTierDepth);
     var fourthTierLayer = L.layerGroup(fourthTierDepth);
@@ -172,7 +162,7 @@ function createMarkers(data) {
     var secondTierLayer = L.layerGroup(secondTierDepth);
     var firstTierLayer = L.layerGroup(firstTierDepth);
 
-    //createMap(earthquakeLayer);
+    // createMap with all layers
     createMap(sixthTierLayer, fifthTierLayer, fourthTierLayer, thirdTierLayer, secondTierLayer, firstTierLayer);
 
 }
